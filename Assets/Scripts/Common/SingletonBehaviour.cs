@@ -2,7 +2,7 @@
 
 public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<T>
 {
-    //씬 전환 시 삭제할지 여부
+    // 씬 전환 시 삭제할지 여부
     protected bool m_IsDestroyOnLoad = false;
 
     protected static T m_Instance;
@@ -34,13 +34,13 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<
         }
     }
 
-    //삭제 시 실행되는 함수
+    // 삭제 시 실행되는 함수
     protected virtual void OnDestroy()
     {
         Dispose();
     }
 
-    //삭제 시 추가로 처리 작업은 여기서
+    // 삭제 시 추가로 처리 작업은 여기서
     protected virtual void Dispose()
     {
         m_Instance = null;

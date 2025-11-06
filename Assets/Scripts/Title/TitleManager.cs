@@ -6,11 +6,11 @@ using UnityEngine.UI;
 
 public class TitleManager : MonoBehaviour
 {
-    //로고
+    // 로고
     public Animation LogoAnim;
     public TextMeshProUGUI LogoText;
 
-    //타이틀
+    // 타이틀
     public GameObject Title;
     public Slider LoadingSlider;
     public TextMeshProUGUI LoadingProgressTxt;
@@ -26,6 +26,16 @@ public class TitleManager : MonoBehaviour
 
     private void Start()
     {
+        // 유저 데이터 로드
+        UserDataManager.Instance.LoadUserData();
+
+        // 저장된 유저 데이터가 없으면 기본값으로 세팅 후 저장
+        if (!UserDataManager.Instance.ExistsSavedData)
+        {
+            UserDataManager.Instance.SetDefaultUserData();
+            UserDataManager.Instance.SaveUserData();
+        }
+
         StartCoroutine(LoadGameCo());
     }
 
@@ -55,13 +65,13 @@ public class TitleManager : MonoBehaviour
         //LoadingProgressTxt.text = ((int)(LoadingSlider.value * 100)).ToString();
         yield return new WaitForSeconds(0.5f);
 
-        while (!m_AsyncOperation.isDone) //로딩이 진행 중일 때 
+        while (!m_AsyncOperation.isDone) // 로딩이 진행 중일 때 
         {
-            //로딩 슬라이더 업데이트
+            // 로딩 슬라이더 업데이트
             LoadingSlider.value = m_AsyncOperation.progress < 0.5f ? 0.5f : m_AsyncOperation.progress;
             LoadingProgressTxt.text = $"{(int)(LoadingSlider.value * 100)}%";
 
-            //씬 로딩이 완료되었다면 로비로 전환하고 코루틴 종료
+            // 씬 로딩이 완료되었다면 로비로 전환하고 코루틴 종료
             if (m_AsyncOperation.progress >= 0.9f)
             {
                 m_AsyncOperation.allowSceneActivation = true;
