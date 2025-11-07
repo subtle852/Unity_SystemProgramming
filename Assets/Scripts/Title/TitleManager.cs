@@ -47,6 +47,13 @@ public class TitleManager : MonoBehaviour
         Logger.Log($"{GetType()}::LoadGameCo");
         LogoAnim.Play();
 
+        AudioManager.Instance.PlayBGM(BGM.lobby);
+        yield return new WaitForSeconds(5f);
+        AudioManager.Instance.PauseBGM();
+        yield return new WaitForSeconds(5f);
+        AudioManager.Instance.ResumeBGM();
+        yield return new WaitForSeconds(5f);
+
         yield return new WaitForSeconds(LogoAnim.clip.length);
 
         LogoAnim.gameObject.SetActive(false);
