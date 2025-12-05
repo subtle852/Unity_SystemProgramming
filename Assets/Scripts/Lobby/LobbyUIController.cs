@@ -9,11 +9,11 @@ public class LobbyUIController : MonoBehaviour
 
     }
 
-    public void OnClickTempBtn()
+    public void OnClickSettingsBtn()
     {
         Logger.Log($"{GetType()}::OnClickTempBtn");
 
-        //var uiData = new BaseUIData();
-        //UIManager.Instance.OpenUI<SettingsUI>(uiData);
+        var uiData = new BaseUIData();
+        UIManager.Instance.OpenUI<SettingsUI>(uiData);
     }
 }

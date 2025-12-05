@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UserDataManager : SingletonBehaviour<UserDataManager>
@@ -58,5 +59,10 @@ public class UserDataManager : SingletonBehaviour<UserDataManager>
             PlayerPrefs.SetInt("ExistsSavedData", 1);
             PlayerPrefs.Save();
         }
+    }
+
+    public T GetUserData<T>() where T: class, IUserData
+    {
+        return UserDataList.OfType<T>().FirstOrDefault();
     }
 }

@@ -36,8 +36,20 @@ public class TitleManager : MonoBehaviour
             UserDataManager.Instance.SaveUserData();
         }
 
+        // DataTableManager 예시
         ChapterData chapterData1 = DataTableManager.Instance.GetChapterData(10);
         ChapterData chapterData2 = DataTableManager.Instance.GetChapterData(30);
+
+        // ConfirmUI 예시
+        var confirmUIData = new ConfirmUIData();
+        confirmUIData.ConfirmType = ConfirmType.OK;
+        confirmUIData.TitleTxt = "UI Test";
+        confirmUIData.DescTxt = "This is UI Test";
+        confirmUIData.OKBtnTxt = "OK";
+        UIManager.Instance.OpenUI<ConfirmUI>(confirmUIData);
+
+
+        AudioManager.Instance.OnLoadUserData();
 
         StartCoroutine(LoadGameCo());
     }
