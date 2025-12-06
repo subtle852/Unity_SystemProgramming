@@ -10,6 +10,19 @@ public class UIManager : SingletonBehaviour<UIManager>
     private Dictionary<System.Type, GameObject> m_OpenUIPool = new Dictionary<System.Type, GameObject>();
     private Dictionary<System.Type, GameObject> m_ClosedUIPool = new Dictionary<System.Type, GameObject>();
 
+    private GoodsUI m_StatsUI;
+
+    protected override void Init()
+    {
+        base.Init();
+
+        m_StatsUI = FindObjectOfType<GoodsUI>();
+        if (!m_StatsUI)
+        {
+            Logger.Log("No stats ui component found.");
+        }
+    }
+
     private BaseUI GetUI<T>(out bool isAlreadyOpen)
     {
         System.Type uiType = typeof(T);
@@ -57,7 +70,7 @@ public class UIManager : SingletonBehaviour<UIManager>
             return;
         }
 
-        var siblingIdx = UICanvasTrs.childCount;
+        var siblingIdx = UICanvasTrs.childCount - 1; // 최상단에 GoodsUI 표시되기때문
         ui.Init(UICanvasTrs);
         ui.transform.SetSiblingIndex(siblingIdx);
         ui.gameObject.SetActive(true);
@@ -113,6 +126,16 @@ public class UIManager : SingletonBehaviour<UIManager>
         while (m_FrontUI)
         {
             m_FrontUI.CloseUI(true);
+        }
+    }
+
+    public void EnableStatsUI(bool value)
+    {
+        m_StatsUI.gameObject.SetActive(value);
+
+        if (value)
+        {
+            m_StatsUI.SetValues();
         }
     }
 }

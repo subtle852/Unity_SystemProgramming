@@ -7,7 +7,7 @@ public class LobbyUIController : MonoBehaviour
 {
     public void Init()
     {
-
+        UIManager.Instance.EnableStatsUI(true);
     }
 
     private void Update()
